@@ -226,8 +226,8 @@ body {
 }
 
 .menu .row .menu-card img {
-  border-radius: 50%;
-  width: 60%;
+  border-radius: 5%;
+  width: 70%;
 }
 
 .menu .row .menu-card .menu-card-title {
@@ -265,7 +265,7 @@ body {
 .contact .row form .input-group input {
   width: 100%;
   padding: 2rem;
-  font-size: 1.7rem;
+  font-size: 1rem;
   background: none;
   color: #fff;
 }
