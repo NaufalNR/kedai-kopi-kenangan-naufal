@@ -184,9 +184,205 @@ function initializeCart() {
 
 // Run when DOM is ready
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initializeCart);
+  document.addEventListener("DOMContentLoaded", function () {
+    initializeCart();
+    updateCartCount();
+  });
 } else {
   initializeCart();
+  updateCartCount();
+}
+
+// Checkout Functionality
+function initializeCheckout() {
+  // Load cart items if on checkout page
+  if (document.getElementById("checkout-items")) {
+    loadCheckoutItems();
+    updateCheckoutTotal();
+  }
+
+  // Handle payment method change
+  const paymentMethod = document.getElementById("payment-method");
+  if (paymentMethod) {
+    paymentMethod.addEventListener("change", function () {
+      const paymentDetails = document.getElementById("payment-details");
+      const bankInfo = document.getElementById("bank-info");
+      const ewalletInfo = document.getElementById("ewallet-info");
+
+      // Hide all payment details first
+      bankInfo.style.display = "none";
+      ewalletInfo.style.display = "none";
+
+      if (this.value === "transfer") {
+        paymentDetails.style.display = "block";
+        bankInfo.style.display = "block";
+      } else if (this.value === "ewallet") {
+        paymentDetails.style.display = "block";
+        ewalletInfo.style.display = "block";
+      } else if (this.value === "cash") {
+        paymentDetails.style.display = "none";
+      } else {
+        paymentDetails.style.display = "none";
+      }
+    });
+  }
+
+  // Handle checkout form submission
+  const checkoutForm = document.getElementById("checkout-form");
+  if (checkoutForm) {
+    checkoutForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      processOrder();
+    });
+  }
+}
+
+function loadCheckoutItems() {
+  const checkoutItemsDiv = document.getElementById("checkout-items");
+  const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+
+  if (cart.length === 0) {
+    checkoutItemsDiv.innerHTML =
+      '<p class="empty-checkout">Keranjang Anda kosong. <a href="index.html">Kembali ke menu</a></p>';
+    return;
+  }
+
+  let html = "";
+  cart.forEach((item) => {
+    html += `
+      <div class="checkout-item">
+        <img src="img/menu/${item.id}.jpg" alt="${item.name}" onerror="this.src='img/menu/default.jpg'">
+        <div class="checkout-item-details">
+          <h4>${item.name}</h4>
+          <p>${item.quantity}x @ IDR ${item.price.toLocaleString("id-ID")}</p>
+        </div>
+        <div class="checkout-item-price">
+          IDR ${(item.price * item.quantity).toLocaleString("id-ID")}
+        </div>
+      </div>
+    `;
+  });
+
+  checkoutItemsDiv.innerHTML = html;
+}
+
+function updateCheckoutTotal() {
+  const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+  const shippingCost = 10000; // Fixed shipping cost
+
+  let subtotal = 0;
+  cart.forEach((item) => {
+    subtotal += item.price * item.quantity;
+  });
+
+  const total = subtotal + shippingCost;
+
+  document.getElementById("checkout-subtotal").textContent =
+    `IDR ${subtotal.toLocaleString("id-ID")}`;
+  document.getElementById("checkout-total").textContent =
+    `IDR ${total.toLocaleString("id-ID")}`;
+}
+
+function processOrder() {
+  const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+
+  if (cart.length === 0) {
+    alert("Keranjang Anda kosong!");
+    return;
+  }
+
+  // Get form data
+  const formData = {
+    customerName: document.getElementById("customer-name").value,
+    customerPhone: document.getElementById("customer-phone").value,
+    customerEmail: document.getElementById("customer-email").value,
+    deliveryAddress: document.getElementById("delivery-address").value,
+    deliveryNotes: document.getElementById("delivery-notes").value,
+    paymentMethod: document.getElementById("payment-method").value,
+    orderItems: cart,
+    orderDate: new Date().toISOString(),
+    orderNumber: generateOrderNumber(),
+  };
+
+  // Calculate total
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+  const shippingCost = 10000;
+  const total = subtotal + shippingCost;
+
+  // Show success modal
+  showOrderSuccess(formData.orderNumber, total);
+
+  // Clear cart
+  localStorage.removeItem("kopiKenanganSenja_cart");
+
+  // Reset cart count in navbar
+  updateCartCount();
+}
+
+function generateOrderNumber() {
+  const timestamp = Date.now();
+  const random = Math.floor(Math.random() * 1000);
+  return `KS${timestamp}${random}`;
+}
+
+function showOrderSuccess(orderNumber, total) {
+  const successModal = document.getElementById("success-modal");
+  const orderNumberSpan = document.getElementById("order-number");
+  const orderTotalSpan = document.getElementById("order-total");
+
+  orderNumberSpan.textContent = orderNumber;
+  orderTotalSpan.textContent = `IDR ${total.toLocaleString("id-ID")}`;
+
+  successModal.classList.add("active");
+}
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Update cart count in navbar if element exists
+  const cartBadge = document.querySelector(".cart-count");
+  if (cartBadge) {
+    cartBadge.textContent = cartCount;
+    cartBadge.style.display = cartCount > 0 ? "inline" : "none";
+  }
+}
+
+// Modify addToCart to redirect to checkout
+function addToCart(productId, productName, productPrice) {
+  const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+
+  const existingItem = cart.find((item) => item.id === productId);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      id: productId,
+      name: productName,
+      price: productPrice,
+      quantity: 1,
+    });
+  }
+
+  localStorage.setItem("kopiKenanganSenja_cart", JSON.stringify(cart));
+  updateCartCount();
+  showNotification(productName + " ditambahkan ke keranjang");
+
+  // Redirect to checkout page after adding to cart
+  setTimeout(() => {
+    window.location.href = "checkout.html";
+  }, 1500);
+}
+
+// Initialize checkout when DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeCheckout);
+} else {
+  initializeCheckout();
 }
 
 // Menu Modal Functionality
