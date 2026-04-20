@@ -438,7 +438,6 @@ function initializeMenuModal() {
 
   // Menu card click handlers
   const menuCards = document.querySelectorAll(".menu-card");
-  const img = card.querySelector("img");
 
   menuCards.forEach((card) => {
     card.addEventListener("click", (e) => {
