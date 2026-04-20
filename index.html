@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,14 +30,22 @@
         <a href="#home">Home</a>
         <a href="#about">Tentang Kami</a>
         <a href="#menu">Menu</a>
+        <a href="#products">Produk</a>
         <a href="#contact">Kontak</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"><i data-feather="search"></i></a>
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
         <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
+
+      <!-- Search from start -->
+        <div class="search-form">
+          <input type="search" id="search-box" placeholder="Search here..." />
+          <label for="search-box"><i data-feather="search"></i></label>
+        </div>
+      <!-- Search from end -->
     </nav>
     <!-- Navbar ends -->
 
@@ -72,52 +82,124 @@
       <p>Temukan berbagai pilihan kopi lezat yang akan memanjakan lidah Anda.</p>
 
 
-      <div class="row">
+      <div class="row" id="menu-container">
         <div class="menu-card">
           <img src="img/menu/1.jpg"
            alt="Espresso" class="menu-card-img">
-           <h3 class="menu-card-tittle">- 
+           <h3 class="menu-card-title">- 
             Espresso</h3>
             <p class="menu-card-price">IDR 15K</p>
         </div>
         <div class="menu-card">
           <img src="img/menu/1.jpg"
-           alt="Espresso" class="menu-card-img">
-           <h3 class="menu-card-tittle">- 
-            Espresso</h3>
-            <p class="menu-card-price">IDR 15K</p>
+           alt="Cappuccino" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Cappuccino</h3>
+            <p class="menu-card-price">IDR 20K</p>
         </div>
         <div class="menu-card">
           <img src="img/menu/1.jpg"
-           alt="Espresso" class="menu-card-img">
-           <h3 class="menu-card-tittle">- 
-            Espresso</h3>
-            <p class="menu-card-price">IDR 15K</p>
+           alt="Latte" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Latte</h3>
+            <p class="menu-card-price">IDR 18K</p>
         </div>
         <div class="menu-card">
           <img src="img/menu/1.jpg"
-           alt="Espresso" class="menu-card-img">
-           <h3 class="menu-card-tittle">- 
-            Espresso</h3>
-            <p class="menu-card-price">IDR 15K</p>
+           alt="Americano" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Americano</h3>
+            <p class="menu-card-price">IDR 16K</p>
         </div>
         <div class="menu-card">
           <img src="img/menu/1.jpg"
-           alt="Espresso" class="menu-card-img">
-           <h3 class="menu-card-tittle">- 
-            Espresso</h3>
-            <p class="menu-card-price">IDR 15K</p>
+           alt="Mocha" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Mocha</h3>
+            <p class="menu-card-price">IDR 22K</p>
         </div>
         <div class="menu-card">
           <img src="img/menu/1.jpg"
-           alt="Espresso" class="menu-card-img">
-           <h3 class="menu-card-tittle">- 
-            Espresso</h3>
-            <p class="menu-card-price">IDR 15K</p>
+           alt="Macchiato" class="menu-card-img">
+           <h3 class="menu-card-title">- 
+            Macchiato</h3>
+            <p class="menu-card-price">IDR 19K</p>
         </div>
       </div>
      </section>
     <!-- Menu Section end -->
+
+
+    <!-- Product Section start -->
+     <section class="products" id="products" >
+      <h2><span>Produk Unggulan</span> Kami</h2>
+      <p>Temukan produk kopi unggulan kami yang akan memanjakan lidah Anda.</p>
+
+
+      <div class="row">
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/products/1.jpg" alt="Product 1">
+          </div>
+          <div class="product-content">
+            <h3>Biji Kopi 1</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+          </div>
+          <div class="product-price">IDR 40k <span>IDR 60k</span></div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/products/1.jpg" alt="Product 1">
+          </div>
+          <div class="product-content">
+            <h3>Biji Kopi 1</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+          </div>
+          <div class="product-price">IDR 40k <span>IDR 60k</span></div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/products/1.jpg" alt="Product 1">
+          </div>
+          <div class="product-content">
+            <h3>Biji Kopi 1</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+          </div>
+          <div class="product-price">IDR 40k <span>IDR 60k</span></div>
+        </div>
+      </div>
+     </section>
+    <!-- Product Section start -->
      
     <!-- Contact Section start -->
      <section id="contact" class="contact">
