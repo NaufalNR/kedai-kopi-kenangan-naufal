@@ -266,7 +266,7 @@ body {
   transition: all 0.3s ease;
   border-radius: 15px;
   overflow: hidden;
-  background: #fff;
+  background: transparent;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
 }
@@ -345,7 +345,7 @@ body {
 }
 
 .menu-card-overlay i {
-  color: #fff;
+  color: #611212;
   font-size: 2rem;
   animation:
     pulse 2s infinite,
@@ -417,7 +417,7 @@ body {
   margin-top: 1rem;
   padding: 0.8rem 1rem;
   background: linear-gradient(135deg, var(--primary) 0%, #8b4513 100%);
-  color: #fff;
+  color: #430b0b;
   border: none;
   border-radius: 10px;
   font-size: 0.9rem;
@@ -497,7 +497,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  background: #fff;
+  background: transparent;
 }
 
 .menu-card-image:hover {
@@ -569,7 +569,8 @@ body {
 }
 
 .menu-modal-content {
-  background-color: #fff;
+  background-color: #1a1a1a;
+  color: #fff;
   border-radius: 20px;
   width: 90%;
   max-width: 600px;
