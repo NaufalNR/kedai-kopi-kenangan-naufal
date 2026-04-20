@@ -195,14 +195,16 @@ function initializeMenuModal() {
   const menuModalClose = document.getElementById("menu-modal-close");
   const modalMenuImage = document.getElementById("modal-menu-image");
   const modalMenuTitle = document.getElementById("modal-menu-title");
-  const modalMenuDescription = document.getElementById("modal-menu-description");
+  const modalMenuDescription = document.getElementById(
+    "modal-menu-description",
+  );
   const modalMenuPrice = document.getElementById("modal-menu-price");
   const btnAddToCart = document.getElementById("btn-add-to-cart");
 
   // Menu card click handlers
   const menuCards = document.querySelectorAll(".menu-card-image");
 
-  menuCards.forEach(card => {
+  menuCards.forEach((card) => {
     card.addEventListener("click", (e) => {
       e.preventDefault();
       const img = card.querySelector("img");
@@ -240,7 +242,9 @@ function initializeMenuModal() {
   // Add to cart from modal
   btnAddToCart.addEventListener("click", () => {
     const menuName = modalMenuTitle.textContent;
-    const menuPrice = modalMenuPrice.textContent.replace("IDR ", "").replace("K", "000");
+    const menuPrice = modalMenuPrice.textContent
+      .replace("IDR ", "")
+      .replace("K", "000");
     const price = parseInt(menuPrice);
 
     // Find the menu card to get the ID

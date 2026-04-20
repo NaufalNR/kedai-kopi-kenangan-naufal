@@ -263,6 +263,11 @@ body {
   text-align: center;
   padding-bottom: 4rem;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
 }
 
 .menu-card-image {
@@ -271,6 +276,7 @@ body {
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .menu-card-image:hover {
@@ -332,6 +338,11 @@ body {
   text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.menu-card:hover .menu-card-title {
+  color: var(--primary);
 }
 
 .menu .row .menu-card .menu-card-price {
@@ -339,6 +350,11 @@ body {
   font-weight: bold;
   color: var(--primary);
   font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.menu-card:hover .menu-card-price {
+  transform: scale(1.05);
 }
 
 /* Menu Modal */
