@@ -187,10 +187,43 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", function () {
     initializeCart();
     updateCartCount();
+    initializeMenuButtons();
   });
 } else {
   initializeCart();
   updateCartCount();
+  initializeMenuButtons();
+}
+
+// Menu buttons functionality
+function initializeMenuButtons() {
+  // Handle menu add to cart buttons
+  const menuAddToCartButtons = document.querySelectorAll('.btn-add-to-cart-menu');
+
+  menuAddToCartButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation(); // Prevent modal from opening
+
+      const productId = this.dataset.id;
+      const productName = this.dataset.name;
+      const productPrice = parseInt(this.dataset.price);
+
+      addToCart(productId, productName, productPrice);
+
+      // Add visual feedback
+      this.innerHTML = '<i data-feather="check"></i> Ditambahkan!';
+      this.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+      feather.replace(); // Reinitialize feather icons
+
+      // Reset button after 2 seconds
+      setTimeout(() => {
+        this.innerHTML = '<i data-feather="plus"></i> Tambah ke Keranjang';
+        this.style.background = 'linear-gradient(135deg, var(--primary) 0%, #8b4513 100%)';
+        feather.replace();
+      }, 2000);
+    });
+  });
 }
 
 // Checkout Functionality
@@ -351,8 +384,8 @@ function updateCartCount() {
   }
 }
 
-// Modify addToCart to redirect to checkout
-function addToCart(productId, productName, productPrice) {
+// Modify addToCart to redirect to checkout only from modal
+function addToCart(productId, productName, productPrice, fromModal = false) {
   const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
 
   const existingItem = cart.find((item) => item.id === productId);
@@ -372,9 +405,13 @@ function addToCart(productId, productName, productPrice) {
   updateCartCount();
   showNotification(productName + " ditambahkan ke keranjang");
 
-  // Redirect to checkout page after adding to cart
-  setTimeout(() => {
-    window.location.href = "checkout.html";
+  // Only redirect to checkout if from modal
+  if (fromModal) {
+    setTimeout(() => {
+      window.location.href = "checkout.html";
+    }, 1500);
+  }
+}
   }, 1500);
 }
 
@@ -465,7 +502,7 @@ function initializeMenuModal() {
     });
 
     if (menuId) {
-      addToCart(menuId, menuName, price);
+      addToCart(menuId, menuName, price, true); // true = from modal, redirect to checkout
       closeModal();
     }
   });

@@ -264,6 +264,35 @@ body {
   padding-bottom: 4rem;
   position: relative;
   transition: all 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.menu-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu Card Animations */
+.menu-card:nth-child(1) { animation: fadeInUp 0.6s ease-out 0.1s both; }
+.menu-card:nth-child(2) { animation: fadeInUp 0.6s ease-out 0.2s both; }
+.menu-card:nth-child(3) { animation: fadeInUp 0.6s ease-out 0.3s both; }
+.menu-card:nth-child(4) { animation: fadeInUp 0.6s ease-out 0.4s both; }
+.menu-card:nth-child(5) { animation: fadeInUp 0.6s ease-out 0.5s both; }
+.menu-card:nth-child(6) { animation: fadeInUp 0.6s ease-out 0.6s both; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .menu-card:hover {
@@ -306,7 +335,7 @@ body {
 .menu-card-overlay i {
   color: #fff;
   font-size: 2rem;
-  animation: pulse 2s infinite;
+  animation: pulse 2s infinite, float 3s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -318,6 +347,15 @@ body {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
   }
 }
 
@@ -355,6 +393,99 @@ body {
 
 .menu-card:hover .menu-card-price {
   transform: scale(1.05);
+}
+
+/* Menu Add to Cart Button */
+.btn-add-to-cart-menu {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(135deg, var(--primary) 0%, #8b4513 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: slideUpButton 0.5s ease-out 0.3s forwards;
+}
+
+.menu-card:hover .btn-add-to-cart-menu {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-add-to-cart-menu:hover {
+  background: linear-gradient(135deg, #8b4513 0%, var(--primary) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(182, 137, 91, 0.4);
+}
+
+.btn-add-to-cart-menu:active {
+  transform: translateY(0);
+}
+
+.btn-add-to-cart-menu i {
+  font-size: 1rem;
+}
+
+/* Button Ripple Effect */
+.btn-add-to-cart-menu {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-add-to-cart-menu::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-add-to-cart-menu:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+@keyframes slideUpButton {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Menu Card Hover Effects */
+.menu-card-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.menu-card-image:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 /* Menu Modal */
@@ -705,7 +836,44 @@ body {
   animation: slideUpScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Responsive Menu Modal */
+/* Responsive Menu */
+@media (max-width: 768px) {
+  .menu-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-add-to-cart-menu {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.8rem;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .menu-card:hover .btn-add-to-cart-menu {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-card {
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .menu .row .menu-card .menu-card-title {
+    font-size: 1.1rem;
+  }
+
+  .menu .row .menu-card .menu-card-price {
+    font-size: 1rem;
+  }
+
+  .btn-add-to-cart-menu {
+    padding: 0.6rem 0.7rem;
+    font-size: 0.8rem;
+  }
+}
 @media (max-width: 768px) {
   .menu-modal-body {
     flex-direction: column;
