@@ -188,3 +188,83 @@ if (document.readyState === "loading") {
 } else {
   initializeCart();
 }
+
+// Menu Modal Functionality
+function initializeMenuModal() {
+  const menuModal = document.getElementById("menu-modal");
+  const menuModalClose = document.getElementById("menu-modal-close");
+  const modalMenuImage = document.getElementById("modal-menu-image");
+  const modalMenuTitle = document.getElementById("modal-menu-title");
+  const modalMenuDescription = document.getElementById("modal-menu-description");
+  const modalMenuPrice = document.getElementById("modal-menu-price");
+  const btnAddToCart = document.getElementById("btn-add-to-cart");
+
+  // Menu card click handlers
+  const menuCards = document.querySelectorAll(".menu-card-image");
+
+  menuCards.forEach(card => {
+    card.addEventListener("click", (e) => {
+      e.preventDefault();
+      const img = card.querySelector("img");
+      const menuName = img.dataset.menu;
+      const menuPrice = img.dataset.price;
+      const menuDescription = img.dataset.description;
+      const menuImage = img.src;
+
+      // Update modal content
+      modalMenuImage.src = menuImage;
+      modalMenuTitle.textContent = menuName;
+      modalMenuDescription.textContent = menuDescription;
+      modalMenuPrice.textContent = menuPrice;
+
+      // Show modal
+      menuModal.classList.add("active");
+      document.body.style.overflow = "hidden"; // Prevent background scroll
+    });
+  });
+
+  // Close modal handlers
+  menuModalClose.addEventListener("click", () => {
+    menuModal.classList.remove("active");
+    document.body.style.overflow = ""; // Restore scroll
+  });
+
+  // Close modal when clicking outside
+  menuModal.addEventListener("click", (e) => {
+    if (e.target === menuModal) {
+      menuModal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Add to cart from modal
+  btnAddToCart.addEventListener("click", () => {
+    const menuName = modalMenuTitle.textContent;
+    const menuPrice = modalMenuPrice.textContent.replace("IDR ", "").replace("K", "000");
+    const price = parseInt(menuPrice);
+
+    // Find the menu card to get the ID
+    const menuCards = document.querySelectorAll(".menu-card");
+    let menuId = null;
+
+    menuCards.forEach((card, index) => {
+      const img = card.querySelector("img");
+      if (img.dataset.menu === menuName) {
+        menuId = index + 1; // Simple ID based on position
+      }
+    });
+
+    if (menuId) {
+      addToCart(menuId, menuName, price);
+      menuModal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  });
+}
+
+// Initialize menu modal when DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeMenuModal);
+} else {
+  initializeMenuModal();
+}

@@ -87,37 +87,135 @@
 
       <div class="row" id="menu-container">
         <div class="menu-card">
-          <img src="img/menu/2.jpg" alt="Espresso" class="menu-card-img" />
+          <div class="menu-card-image">
+            <img
+              src="img/menu/2.jpg"
+              alt="Espresso"
+              class="menu-card-img"
+              data-menu="Espresso"
+              data-price="IDR 15K"
+              data-description="Kopi hitam klasik dengan rasa kuat dan aroma yang khas."
+            />
+            <div class="menu-card-overlay">
+              <i data-feather="eye"></i>
+            </div>
+          </div>
           <h3 class="menu-card-title">- Espresso</h3>
           <p class="menu-card-price">IDR 15K</p>
         </div>
         <div class="menu-card">
-          <img src="img/menu/3.jpg" alt="Cappuccino" class="menu-card-img" />
+          <div class="menu-card-image">
+            <img
+              src="img/menu/3.jpg"
+              alt="Cappuccino"
+              class="menu-card-img"
+              data-menu="Cappuccino"
+              data-price="IDR 20K"
+              data-description="Perpaduan sempurna antara espresso, susu panas, dan busa susu."
+            />
+            <div class="menu-card-overlay">
+              <i data-feather="eye"></i>
+            </div>
+          </div>
           <h3 class="menu-card-title">- Cappuccino</h3>
           <p class="menu-card-price">IDR 20K</p>
         </div>
         <div class="menu-card">
-          <img src="img/menu/4.jpg" alt="Latte" class="menu-card-img" />
+          <div class="menu-card-image">
+            <img
+              src="img/menu/4.jpg"
+              alt="Latte"
+              class="menu-card-img"
+              data-menu="Latte"
+              data-price="IDR 18K"
+              data-description="Espresso dengan susu panas yang creamy dan lembut."
+            />
+            <div class="menu-card-overlay">
+              <i data-feather="eye"></i>
+            </div>
+          </div>
           <h3 class="menu-card-title">- Latte</h3>
           <p class="menu-card-price">IDR 18K</p>
         </div>
         <div class="menu-card">
-          <img src="img/menu/5.jpg" alt="Americano" class="menu-card-img" />
+          <div class="menu-card-image">
+            <img
+              src="img/menu/5.jpg"
+              alt="Americano"
+              class="menu-card-img"
+              data-menu="Americano"
+              data-price="IDR 16K"
+              data-description="Espresso yang dicampur dengan air panas untuk rasa yang lebih ringan."
+            />
+            <div class="menu-card-overlay">
+              <i data-feather="eye"></i>
+            </div>
+          </div>
           <h3 class="menu-card-title">- Americano</h3>
           <p class="menu-card-price">IDR 16K</p>
         </div>
         <div class="menu-card">
-          <img src="img/menu/6.jpg" alt="Mocha" class="menu-card-img" />
+          <div class="menu-card-image">
+            <img
+              src="img/menu/6.jpg"
+              alt="Mocha"
+              class="menu-card-img"
+              data-menu="Mocha"
+              data-price="IDR 22K"
+              data-description="Perpaduan espresso, coklat, dan susu untuk cita rasa manis."
+            />
+            <div class="menu-card-overlay">
+              <i data-feather="eye"></i>
+            </div>
+          </div>
           <h3 class="menu-card-title">- Mocha</h3>
           <p class="menu-card-price">IDR 22K</p>
         </div>
         <div class="menu-card">
-          <img src="img/menu/7.jpg" alt="Macchiato" class="menu-card-img" />
+          <div class="menu-card-image">
+            <img
+              src="img/menu/7.jpg"
+              alt="Macchiato"
+              class="menu-card-img"
+              data-menu="Macchiato"
+              data-price="IDR 19K"
+              data-description="Espresso dengan sedikit busa susu untuk rasa yang balanced."
+            />
+            <div class="menu-card-overlay">
+              <i data-feather="eye"></i>
+            </div>
+          </div>
           <h3 class="menu-card-title">- Macchiato</h3>
           <p class="menu-card-price">IDR 19K</p>
         </div>
       </div>
     </section>
+
+    <!-- Menu Modal -->
+    <div class="menu-modal" id="menu-modal">
+      <div class="menu-modal-content">
+        <div class="menu-modal-header">
+          <h3 id="modal-menu-title">Menu Title</h3>
+          <button class="menu-modal-close" id="menu-modal-close">
+            &times;
+          </button>
+        </div>
+        <div class="menu-modal-body">
+          <div class="menu-modal-image">
+            <img id="modal-menu-image" src="" alt="Menu Image" />
+          </div>
+          <div class="menu-modal-info">
+            <p id="modal-menu-description">Menu description</p>
+            <div class="menu-modal-price">
+              <span id="modal-menu-price">IDR 0</span>
+            </div>
+            <button class="btn-add-to-cart" id="btn-add-to-cart">
+              Tambah ke Keranjang
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Menu Section end -->
 
     <!-- Product Section start -->
