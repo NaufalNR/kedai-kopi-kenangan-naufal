@@ -219,23 +219,33 @@ function initializeMenuModal() {
       modalMenuDescription.textContent = menuDescription;
       modalMenuPrice.textContent = menuPrice;
 
-      // Show modal
+      // Show modal with smooth animation
       menuModal.classList.add("active");
-      document.body.style.overflow = "hidden"; // Prevent background scroll
+      document.body.style.overflow = "hidden";
+
+      // Trigger reflow for animation
+      menuModal.offsetHeight;
     });
   });
 
+  // Smooth close modal function
+  function closeModal() {
+    menuModal.classList.add("closing");
+
+    // Wait for animation to complete before hiding
+    setTimeout(() => {
+      menuModal.classList.remove("active", "closing");
+      document.body.style.overflow = "";
+    }, 400);
+  }
+
   // Close modal handlers
-  menuModalClose.addEventListener("click", () => {
-    menuModal.classList.remove("active");
-    document.body.style.overflow = ""; // Restore scroll
-  });
+  menuModalClose.addEventListener("click", closeModal);
 
   // Close modal when clicking outside
   menuModal.addEventListener("click", (e) => {
     if (e.target === menuModal) {
-      menuModal.classList.remove("active");
-      document.body.style.overflow = "";
+      closeModal();
     }
   });
 
@@ -260,8 +270,7 @@ function initializeMenuModal() {
 
     if (menuId) {
       addToCart(menuId, menuName, price);
-      menuModal.classList.remove("active");
-      document.body.style.overflow = "";
+      closeModal();
     }
   });
 }
