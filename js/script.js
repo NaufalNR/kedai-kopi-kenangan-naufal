@@ -37,95 +37,93 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// Shopping Cart Functionality
-let cart = [];
+// Shopping Cart Functionality - REMOVED: Using localStorage version instead
+// let cart = [];
 
-// Add to cart function
-function addToCart(productId, productName, productPrice) {
-  const existingItem = cart.find((item) => item.id === productId);
+// Add to cart function - REMOVED: Using localStorage version instead
+// function addToCart(productId, productName, productPrice) {
+//   const existingItem = cart.find((item) => item.id === productId);
 
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({
-      id: productId,
-      name: productName,
-      price: productPrice,
-      quantity: 1,
-    });
-  }
+//   if (existingItem) {
+//     existingItem.quantity += 1;
+//   } else {
+//     cart.push({
+//       id: productId,
+//       name: productName,
+//       price: productPrice,
+//       quantity: 1,
+//     });
+//   }
 
-  updateCart();
-  showNotification(productName + " ditambahkan ke keranjang");
-}
+//   updateCart();
+//   showNotification(productName + " ditambahkan ke keranjang");
+// }
 
-// Update cart display
-function updateCart() {
-  const cartItemsDiv = document.getElementById("cart-items");
-  const cartTotalSpan = document.getElementById("cart-total");
+// Update cart display - REMOVED: Using localStorage version instead
+// function updateCart() {
+//   const cartItemsDiv = document.getElementById("cart-items");
+//   const cartTotalSpan = document.getElementById("cart-total");
 
-  if (cart.length === 0) {
-    cartItemsDiv.innerHTML = '<p class="empty-cart">Keranjang Anda kosong</p>';
-    cartTotalSpan.textContent = "IDR 0";
-    return;
-  }
+//   if (cart.length === 0) {
+//     cartItemsDiv.innerHTML = '<p class="empty-cart">Keranjang Anda kosong</p>';
+//     cartTotalSpan.textContent = "IDR 0";
+//     return;
+//   }
 
-  let html = "";
-  let total = 0;
+//   let html = "";
+//   let total = 0;
 
-  cart.forEach((item) => {
-    const itemTotal = item.price * item.quantity;
-    total += itemTotal;
-    html += `
-      <div class="cart-item">
-        <div class="item-info">
-          <h4>${item.name}</h4>
-          <p>IDR ${item.price.toLocaleString("id-ID")}</p>
-        </div>
-        <div class="item-quantity">
-          <button class="qty-btn" onclick="decreaseQty(${item.id})">-</button>
-          <span>${item.quantity}</span>
-          <button class="qty-btn" onclick="increaseQty(${item.id})">+</button>
-        </div>
-        <div class="item-total">
-          <p>IDR ${itemTotal.toLocaleString("id-ID")}</p>
-          <button class="remove-btn" onclick="removeFromCart(${item.id})">Hapus</button>
-        </div>
-      </div>
-    `;
-  });
+//   cart.forEach((item) => {
+//     const itemTotal = item.price * item.quantity;
+//     total += itemTotal;
+//     html += `
+//       <div class="cart-item">
+//         <div class="item-info">
+//           <h4>${item.name}</h4>
+//           <p>IDR ${item.price.toLocaleString("id-ID")}</p>
+//         </div>
+//         <div class="item-quantity">
+//           <button class="qty-btn" onclick="decreaseQty(${item.id})">-</button>
+//           <span>${item.quantity}</span>
+//           <button class="qty-btn" onclick="increaseQty(${item.id})">+</button>
+//         </div>
+//         <div class="item-total">
+//           <p>IDR ${itemTotal.toLocaleString("id-ID")}</p>
+//           <button class="remove-btn" onclick="removeFromCart(${item.id})">Hapus</button>
+//         </div>
+//       </div>
+//     `;
+//   });
 
-  cartItemsDiv.innerHTML = html;
-  cartTotalSpan.textContent = "IDR " + total.toLocaleString("id-ID");
-}
+//   cartItemsDiv.innerHTML = html;
+//   cartTotalSpan.textContent = "IDR " + total.toLocaleString("id-ID");
+// }
 
-// Increase quantity
-function increaseQty(productId) {
-  const item = cart.find((item) => item.id === productId);
-  if (item) {
-    item.quantity += 1;
-    updateCart();
-  }
-}
+// Quantity management functions - REMOVED: Using localStorage versions instead
+// function increaseQty(productId) {
+//   const item = cart.find((item) => item.id === productId);
+//   if (item) {
+//     item.quantity += 1;
+//     updateCart();
+//   }
+// }
 
-// Decrease quantity
-function decreaseQty(productId) {
-  const item = cart.find((item) => item.id === productId);
-  if (item) {
-    if (item.quantity > 1) {
-      item.quantity -= 1;
-    } else {
-      removeFromCart(productId);
-    }
-    updateCart();
-  }
-}
+// function decreaseQty(productId) {
+//   const item = cart.find((item) => item.id === productId);
+//   if (item) {
+//     if (item.quantity > 1) {
+//       item.quantity -= 1;
+//     } else {
+//       removeFromCart(productId);
+//     }
+//     updateCart();
+//   }
+// }
 
-// Remove from cart
-function removeFromCart(productId) {
-  cart = cart.filter((item) => item.id !== productId);
-  updateCart();
-}
+// function removeFromCart(productId) {
+//   cart = cart.filter((item) => item.id !== productId);
+//   updateCart();
+// }
 
 // Show notification
 function showNotification(message) {
@@ -146,7 +144,7 @@ function initializeCart() {
   const closeCartButton = document.getElementById("close-cart");
   const addToCartButtons = document.querySelectorAll(".add-to-cart");
 
-  // Add to cart buttons
+  // Add to cart buttons for products section
   addToCartButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
       e.preventDefault();
@@ -163,6 +161,7 @@ function initializeCart() {
     shoppingCartButton.addEventListener("click", (e) => {
       e.preventDefault();
       cartModal.classList.toggle("active");
+      updateCartDisplay(); // Update cart display when modal opens
     });
 
     closeCartButton.addEventListener("click", () => {
@@ -187,21 +186,25 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", function () {
     initializeCart();
     updateCartCount();
+    updateCartDisplay(); // Initialize cart display
     initializeMenuButtons();
   });
 } else {
   initializeCart();
   updateCartCount();
+  updateCartDisplay(); // Initialize cart display
   initializeMenuButtons();
 }
 
 // Menu buttons functionality
 function initializeMenuButtons() {
   // Handle menu add to cart buttons
-  const menuAddToCartButtons = document.querySelectorAll('.btn-add-to-cart-menu');
+  const menuAddToCartButtons = document.querySelectorAll(
+    ".btn-add-to-cart-menu",
+  );
 
-  menuAddToCartButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
+  menuAddToCartButtons.forEach((button) => {
+    button.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation(); // Prevent modal from opening
 
@@ -213,13 +216,15 @@ function initializeMenuButtons() {
 
       // Add visual feedback
       this.innerHTML = '<i data-feather="check"></i> Ditambahkan!';
-      this.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+      this.style.background =
+        "linear-gradient(135deg, #28a745 0%, #20c997 100%)";
       feather.replace(); // Reinitialize feather icons
 
       // Reset button after 2 seconds
       setTimeout(() => {
         this.innerHTML = '<i data-feather="plus"></i> Tambah ke Keranjang';
-        this.style.background = 'linear-gradient(135deg, var(--primary) 0%, #8b4513 100%)';
+        this.style.background =
+          "linear-gradient(135deg, var(--primary) 0%, #8b4513 100%)";
         feather.replace();
       }, 2000);
     });
@@ -384,6 +389,85 @@ function updateCartCount() {
   }
 }
 
+// Quantity management functions using localStorage
+function increaseQty(productId) {
+  const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+  const item = cart.find((item) => item.id === productId);
+  if (item) {
+    item.quantity += 1;
+    localStorage.setItem("kopiKenanganSenja_cart", JSON.stringify(cart));
+    updateCartCount();
+    updateCartDisplay(); // Update cart modal display
+  }
+}
+
+function decreaseQty(productId) {
+  const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+  const item = cart.find((item) => item.id === productId);
+  if (item) {
+    if (item.quantity > 1) {
+      item.quantity -= 1;
+    } else {
+      removeFromCart(productId);
+      return;
+    }
+    localStorage.setItem("kopiKenanganSenja_cart", JSON.stringify(cart));
+    updateCartCount();
+    updateCartDisplay(); // Update cart modal display
+  }
+}
+
+function removeFromCart(productId) {
+  let cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+  cart = cart.filter((item) => item.id !== productId);
+  localStorage.setItem("kopiKenanganSenja_cart", JSON.stringify(cart));
+  updateCartCount();
+  updateCartDisplay(); // Update cart modal display
+}
+
+// Update cart modal display
+function updateCartDisplay() {
+  const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
+  const cartItemsDiv = document.getElementById("cart-items");
+  const cartTotalSpan = document.getElementById("cart-total");
+
+  if (!cartItemsDiv || !cartTotalSpan) return; // Exit if elements don't exist
+
+  if (cart.length === 0) {
+    cartItemsDiv.innerHTML = '<p class="empty-cart">Keranjang Anda kosong</p>';
+    cartTotalSpan.textContent = "IDR 0";
+    return;
+  }
+
+  let html = "";
+  let total = 0;
+
+  cart.forEach((item) => {
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+    html += `
+      <div class="cart-item">
+        <div class="item-info">
+          <h4>${item.name}</h4>
+          <p>IDR ${item.price.toLocaleString("id-ID")}</p>
+        </div>
+        <div class="item-quantity">
+          <button class="qty-btn" onclick="decreaseQty(${item.id})">-</button>
+          <span>${item.quantity}</span>
+          <button class="qty-btn" onclick="increaseQty(${item.id})">+</button>
+        </div>
+        <div class="item-total">
+          <p>IDR ${itemTotal.toLocaleString("id-ID")}</p>
+          <button class="remove-btn" onclick="removeFromCart(${item.id})">Hapus</button>
+        </div>
+      </div>
+    `;
+  });
+
+  cartItemsDiv.innerHTML = html;
+  cartTotalSpan.textContent = "IDR " + total.toLocaleString("id-ID");
+}
+
 // Modify addToCart to redirect to checkout only from modal
 function addToCart(productId, productName, productPrice, fromModal = false) {
   const cart = JSON.parse(localStorage.getItem("kopiKenanganSenja_cart")) || [];
@@ -411,8 +495,6 @@ function addToCart(productId, productName, productPrice, fromModal = false) {
       window.location.href = "checkout.html";
     }, 1500);
   }
-}
-  }, 1500);
 }
 
 // Initialize checkout when DOM is ready
